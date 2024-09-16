@@ -1,0 +1,58 @@
+#currency converter
+from tkinter import  *
+from tkinter import Tk,ttk
+from PIL import Image,ImageTk
+from currency_converter import CurrencyConverter
+print("ok")
+cor0="#FFFFFF"
+cor1="#333333"
+cor2="#EB5D51"
+win=Tk()
+win.geometry("300x320")
+win.resizable(0,0)
+win.title("currency converter")
+win.config(bg=cor0)
+a=CurrencyConverter()
+def convert():
+    cur1=combo1.get()
+    cur2=combo2.get()
+    amount=value.get()
+    res=a.convert(amount,cur1,cur2)
+    res=round(res,2)
+    result.config(text=cur2+" "+str(res))
+top=Frame(win,width=300,height=60,bg=cor2)
+top.grid(row=0,column=0)
+
+main=Frame(win,width=300,height=260,bg=cor1)
+main.grid(row=1,column=0)
+
+icon=Image.open("icon.png")
+icon=icon.resize((40,40))
+icon=ImageTk.PhotoImage(icon)
+
+app_name=Label(top,image=icon,text="Currency Converter",bg=cor2,fg=cor0,compound=LEFT,font="arial 16 bold",height=5,padx=13,pady=30)
+app_name.place(x=0,y=0)
+
+result=Label(main,text="",width=16,height=2,font="ivy 15 bold",pady=7,bg=cor0,fg=cor1,relief="solid")
+result.place(x=50,y=10)
+Currency=["CAD","BRL","EUR","INR","USD"]
+#from ke lie
+from_label=Label(main,text="From",width=8,compound=LEFT,font="ivy 10 bold",height=1,padx=0,pady=0,bg=cor0,fg=cor1)
+from_label.place(x=52,y=90)
+#combo k lie
+combo1=ttk.Combobox(main,width=8,font="ivy 12 bold",justify=CENTER)
+combo1["values"]=(Currency)
+combo1.place(x=50,y=115)
+#to label
+to_label=Label(main,text="TO",width=8,font="ivy 10 bold",height=1,padx=0,pady=0,bg=cor0,fg=cor1)
+to_label.place(x=158,y=90)
+#to's combo
+combo2=ttk.Combobox(main,width=8,font="ivy 12 bold",justify=CENTER)
+combo2["values"]=(Currency)
+combo2.place(x=158,y=115)
+#entry
+value=Entry(main,width=22,justify=CENTER,font="ivy 12 bold",relief="solid")
+value.place(x=50,y=155)
+button=Button(main,text="convertor",font="ivy 12 bold",width=19,height=1,padx=5,bg=cor2,fg=cor0,command=convert)
+button.place(x=50,y=210)
+win.mainloop()
